@@ -1,82 +1,81 @@
-#[allow(dead_code)]
+#![allow(dead_code, unused)]
+#[derive(Debug)]
+struct Point {
+    x: f32,
+    y: f32,
+}
 
-mod file_system {
-    #[derive(Debug)]
-    struct File {
-        id: u32,
-        name: String,
-        path: String,
-        f_type: String,
-        size: f32,
-    }
+struct Point3D(f32, f32, f32);
 
-    #[derive(Debug)]
-    struct Folder {
-        id: u32,
-        name: String,
-        path: String,
-        size: f32,
-        color: (f32, f32, f32),
-    }
+#[derive(Debug)]
+struct Cirlce {
+    center: Point,
+    radius: u32,
+}
 
-    #[derive(Debug)]
-    pub struct FileSystem {
-        files: Vec<File>,
-        folders: Vec<Folder>,
-    }
-
-    impl FileSystem {
-        pub fn init() -> Self {
-            Self {
-                files: vec![],
-                folders: vec![],
-            }
-        }
-
-        pub fn new_file(&mut self) {
-            let new_file = File {
-                id: 1,
-                name: "BigBang.txt".to_string(),
-                f_type: "txt".to_string(),
-                size: 12.2,
-                path: "/parent".to_string(),
-            };
-
-            self.files.push(new_file);
-        }
-
-        pub fn print_files(&self) {
-            for each_file in self.files.iter() {
-                println!(
-                    "\nId: {:?},\t Name: {:?},\t Type: {:?},\t Path: {:?},\t Size: {:?}",
-                    each_file.id, each_file.name, each_file.f_type, each_file.path, each_file.size
-                );
-            }
-        }
-
-        pub fn print_folders(&self) {
-            if self.folders.len() > 0 {
-                for each_folder in self.folders.iter() {
-                    println!(
-                        "File:
-                        ID: {:?}, Name: {:?}, Path: {:?}, Size: {:?}, Folder color: {:?}",
-                        each_folder.id,
-                        each_folder.name,
-                        each_folder.path,
-                        each_folder.size,
-                        each_folder.color
-                    );
-                }
-            } else {
-                print!("~root > ")
-            }
-        }
-    }
+#[derive(Debug, PartialEq)]
+enum COLOR {
+    RED,
+    GREEN,
+    BLUE,
+    Rgba(u8, u8, u8, f32),
+    Hex(String),
+    HSL { h: u8, s: u8, l: u8 },
 }
 
 fn main() {
-    let mut new_filesystem = file_system::FileSystem::init();
-    new_filesystem.new_file();
-    new_filesystem.print_folders();
-    new_filesystem.print_files();
+    let red_color: COLOR = COLOR::RED;
+    let green_color = COLOR::GREEN;
+    let blue_color = COLOR::BLUE;
+
+    // RGBA
+    let rgba_color = COLOR::Rgba(10, 15, 12, 0.5);
+    let color = COLOR::Hex("#fff".to_string());
+    let hsl_color = COLOR::HSL {
+        h: 10,
+        s: 12,
+        l: 15,
+    };
+
+    println!("{:?}", rgba_color);
+    println!("{:?}", color);
+    println!("Is Equal: {}", green_color == red_color);
+    println!("Is Equal: {}", green_color == blue_color);
+    println!("Is Equal: {:?}", hsl_color);
+
+    // Optional Enum
+    let super_optional: Option<i32> = None;
+    let yuper: Option<i32> = Some(11);
+
+    println!("{:?}", yuper);
+    println!("{:?}", super_optional);
+
+    // Optional
+    let ok_mocha: Result<u32, String> = Ok(10);
+    let err_mocha: Result<u32, String> = Err("Snake Life".to_string());
+
+    println!("{:?} {:?}", ok_mocha, err_mocha);
+
+    // Structs:
+    let point = Point {
+        x: 10 as f32,
+        y: 12 as f32,
+    };
+    let new_struct = Cirlce {
+        center: point,
+        radius: 12,
+    };
+
+    println!(
+        "x: {:?} y: {}, r: {}",
+        new_struct.center.x, new_struct.center.y, new_struct.radius
+    );
+
+    // Some Shortcut:
+    let x = 10 as f32;
+    let y = 12 as f32;
+
+    let p2 = Point { x, y };
+    let p3 = Point { ..p2 };
+    println!("P2: {:#?} P3: {:#?}", p2, p3);
 }
