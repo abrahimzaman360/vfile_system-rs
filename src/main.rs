@@ -1,5 +1,7 @@
 #![allow(dead_code, unused)]
+
 mod exercise;
+mod project;
 
 #[derive(Debug)]
 struct Point {
@@ -83,4 +85,39 @@ fn main() {
 
     // Array:
     exercise::arrays::arrays();
+
+    // Structs:
+    let mut vehicle_roof = exercise::structs::VehicleRoof::new(); // Create an empty VehicleRoof
+
+    // Create a new vehicle
+    let vehicle = exercise::structs::Vehicle {
+        v_type: Some(exercise::structs::Type::CIVIC),
+        v_num_plate: Some("ABC-123".to_string()),
+        price: Some(25000.0),
+        condition: Some(exercise::structs::Condition::NEW),
+    };
+
+    // Add the vehicle to VehicleRoof
+    vehicle_roof.add_vehicle(vehicle);
+
+    // Print the entire structure
+    println!("{:#?}", vehicle_roof);
+
+    // Strings & Slices:
+    println!("{} ", exercise::strings::strings("Super Mocha"));
+    // exercise::strings::super_slice();
+
+    // Error Handling:
+    // println!("{:#?}", exercise::error::error().unwrap());
+
+    // Ownership Rules:
+    exercise::ownership::user();
+
+    // Test calculator:
+
+    let num1 = 10;
+    let op = '-';
+    let num2 = 5;
+
+    let some_val = project::calculator::calculator(num1, op, num2).unwrap();
 }
