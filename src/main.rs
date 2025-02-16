@@ -1,4 +1,6 @@
 #![allow(dead_code, unused)]
+mod exercise;
+
 #[derive(Debug)]
 struct Point {
     x: f32,
@@ -78,4 +80,7 @@ fn main() {
     let p2 = Point { x, y };
     let p3 = Point { ..p2 };
     println!("P2: {:#?} P3: {:#?}", p2, p3);
+
+    // Array:
+    exercise::arrays::arrays();
 }
